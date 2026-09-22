@@ -1,0 +1,16 @@
+.git/
+.github/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.pyc
+*.db
+*.db-shm
+*.db-wal
+indexer/
+tests/
+tools/
+docs/
+vars.yml
+indexer/.env

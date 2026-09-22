@@ -1,0 +1,13 @@
+app-name: sharepoint-search-mcp
+route: sharepoint-search-mcp.example.cfapps.example.com
+memory: 1800M
+disk-quota: 2G
+postgres-service: sharepoint_mcp_db
+database-schema: sharepoint_mcp
+embedding-model: mcp_server/models/all-MiniLM-L6-v2
+sharepoint-library-view-url: https://contoso.sharepoint.com/sites/your-site/Shared%20Documents/Forms/AllItems.aspx
+mcp-base-url: https://sharepoint-search-mcp.example.cfapps.example.com
+oidc-config-url: https://your-identity-provider.example.com/.well-known/openid-configuration
+oidc-client-id: replace-locally
+oidc-client-secret: replace-locally
+usage-hash-salt: replace-with-a-long-random-value

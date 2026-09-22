@@ -1,0 +1,25 @@
+applications:
+  - name: ((app-name))
+    path: .
+    memory: ((memory))
+    disk_quota: ((disk-quota))
+    instances: 1
+    buildpacks:
+      - python_buildpack
+    command: uvicorn mcp_server.main:app --host 0.0.0.0 --port $PORT
+    health-check-type: port
+    routes:
+      - route: ((route))
+    services:
+      - ((postgres-service))
+    env:
+      INDEX_BACKEND: postgres
+      DATABASE_SCHEMA: ((database-schema))
+      EMBEDDING_PROVIDER: local
+      EMBEDDING_MODEL: ((embedding-model))
+      SHAREPOINT_LIBRARY_VIEW_URL: ((sharepoint-library-view-url))
+      MCP_BASE_URL: ((mcp-base-url))
+      OIDC_CONFIG_URL: ((oidc-config-url))
+      OIDC_CLIENT_ID: ((oidc-client-id))
+      OIDC_CLIENT_SECRET: ((oidc-client-secret))
+      MCP_USAGE_HASH_SALT: ((usage-hash-salt))

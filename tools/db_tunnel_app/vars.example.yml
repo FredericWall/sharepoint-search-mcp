@@ -1,0 +1,2 @@
+tunnel-app-name: sharepoint-mcp-db-tunnel
+postgres-service: sharepoint_mcp_db

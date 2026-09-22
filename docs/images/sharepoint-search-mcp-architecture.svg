@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title description">
+  <title id="title">Architecture of the team SharePoint search project</title>
+  <desc id="description">A local indexer processes synchronized SharePoint files and stores text, embeddings, metadata, and derived SharePoint links in PostgreSQL. Joule Work Desktop calls a read-only FastMCP server, which searches PostgreSQL but does not access SharePoint directly.</desc>
+
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1769aa"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b65300"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#183247" flood-opacity="0.14"/>
+    </filter>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #17324d; }
+      .subtitle { font: 16px Arial, sans-serif; fill: #536778; }
+      .lane-label { font: 700 14px Arial, sans-serif; letter-spacing: 1.2px; fill: #496274; }
+      .box-title { font: 700 20px Arial, sans-serif; fill: #17324d; }
+      .box-copy { font: 15px Arial, sans-serif; fill: #3d5365; }
+      .box-copy-small { font: 14px Arial, sans-serif; fill: #3d5365; }
+      .arrow-label { font: 700 13px Arial, sans-serif; fill: #1769aa; }
+      .link-label { font: 700 13px Arial, sans-serif; fill: #9a4900; }
+      .note-title { font: 700 15px Arial, sans-serif; fill: #8b3f00; }
+      .note-copy { font: 14px Arial, sans-serif; fill: #68452b; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="760" fill="#ffffff"/>
+  <text class="title" x="55" y="52">From team SharePoint to answers in Joule Work Desktop</text>
+  <text class="subtitle" x="55" y="82">Indexing happens locally; searching happens through a read-only MCP service.</text>
+
+  <rect x="40" y="108" width="1320" height="260" rx="20" fill="#f2f7fb" stroke="#d8e5ee"/>
+  <rect x="58" y="122" width="245" height="30" rx="15" fill="#dcebf7"/>
+  <text class="lane-label" x="78" y="143">INDEX BUILD · LOCAL MACHINE</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="180" width="215" height="130" rx="14" fill="#ffffff" stroke="#8db6d5" stroke-width="2"/>
+    <rect x="70" y="180" width="215" height="8" rx="4" fill="#1473a9"/>
+  </g>
+  <circle cx="105" cy="218" r="19" fill="#dceef9"/>
+  <text x="105" y="224" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1473a9">S</text>
+  <text class="box-title" x="135" y="224">Team SharePoint</text>
+  <text class="box-copy" x="92" y="258">Original PPTX, DOCX,</text>
+  <text class="box-copy" x="92" y="281">and PDF files</text>
+
+  <g filter="url(#shadow)">
+    <rect x="350" y="180" width="215" height="130" rx="14" fill="#ffffff" stroke="#91bda8" stroke-width="2"/>
+    <rect x="350" y="180" width="215" height="8" rx="4" fill="#26845b"/>
+  </g>
+  <circle cx="385" cy="218" r="19" fill="#dff2e9"/>
+  <path d="M376 213h8l4 4h10v12h-22z" fill="none" stroke="#26845b" stroke-width="2"/>
+  <text class="box-title" x="415" y="224">Synced folder</text>
+  <text class="box-copy" x="372" y="258">Local OneDrive copy</text>
+  <text class="box-copy" x="372" y="281">of the library</text>
+
+  <g filter="url(#shadow)">
+    <rect x="630" y="164" width="285" height="162" rx="14" fill="#ffffff" stroke="#8f9fd0" stroke-width="2"/>
+    <rect x="630" y="164" width="285" height="8" rx="4" fill="#5369b5"/>
+  </g>
+  <circle cx="668" cy="204" r="19" fill="#e7eafb"/>
+  <text x="668" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#5369b5">Py</text>
+  <text class="box-title" x="699" y="210">Local indexer</text>
+  <text class="box-copy-small" x="654" y="242">Extract and chunk text</text>
+  <text class="box-copy-small" x="654" y="264">Create MiniLM embeddings</text>
+  <text class="box-copy-small" x="654" y="286">Derive the SharePoint URL</text>
+  <text class="box-copy-small" x="654" y="308">Skip files that are unchanged</text>
+
+  <g filter="url(#shadow)">
+    <rect x="990" y="170" width="330" height="150" rx="14" fill="#ffffff" stroke="#b69bce" stroke-width="2"/>
+    <rect x="990" y="170" width="330" height="8" rx="4" fill="#7952a0"/>
+  </g>
+  <ellipse cx="1030" cy="207" rx="21" ry="8" fill="#eee7f5" stroke="#7952a0" stroke-width="2"/>
+  <path d="M1009 207v25c0 5 42 5 42 0v-25" fill="#eee7f5" stroke="#7952a0" stroke-width="2"/>
+  <text class="box-title" x="1065" y="216">PostgreSQL index</text>
+  <text class="box-copy-small" x="1018" y="253">Document text and metadata</text>
+  <text class="box-copy-small" x="1018" y="275">384-value embeddings</text>
+  <text class="box-copy-small" x="1018" y="297">Stored SharePoint HTTPS links</text>
+
+  <line x1="285" y1="245" x2="350" y2="245" stroke="#1769aa" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text class="arrow-label" x="317" y="231" text-anchor="middle">sync</text>
+  <line x1="565" y1="245" x2="630" y2="245" stroke="#1769aa" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text class="arrow-label" x="598" y="231" text-anchor="middle">read</text>
+  <line x1="915" y1="245" x2="990" y2="245" stroke="#1769aa" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text class="arrow-label" x="952" y="231" text-anchor="middle">write</text>
+
+  <rect x="40" y="400" width="1320" height="300" rx="20" fill="#f8fafc" stroke="#dce5eb"/>
+  <rect x="58" y="414" width="250" height="30" rx="15" fill="#e8eef3"/>
+  <text class="lane-label" x="78" y="435">QUESTION AND RETRIEVAL</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="505" width="170" height="110" rx="14" fill="#ffffff" stroke="#a8b7c3" stroke-width="2"/>
+  </g>
+  <circle cx="106" cy="545" r="18" fill="#e8eef3"/>
+  <circle cx="106" cy="539" r="6" fill="#536778"/>
+  <path d="M95 555c3-9 19-9 22 0" fill="none" stroke="#536778" stroke-width="3" stroke-linecap="round"/>
+  <text class="box-title" x="135" y="551">Colleague</text>
+  <text class="box-copy" x="92" y="584">Asks a question</text>
+
+  <g filter="url(#shadow)">
+    <rect x="310" y="488" width="240" height="144" rx="14" fill="#ffffff" stroke="#e0aa72" stroke-width="2"/>
+    <rect x="310" y="488" width="240" height="8" rx="4" fill="#dd7a1f"/>
+  </g>
+  <circle cx="348" cy="530" r="19" fill="#fff0df"/>
+  <text x="348" y="536" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#c8640c">J</text>
+  <text class="box-title" x="380" y="536">Joule Work</text>
+  <text class="box-title" x="380" y="560">Desktop</text>
+  <text class="box-copy-small" x="334" y="591">Chooses and calls tools</text>
+  <text class="box-copy-small" x="334" y="612">Shows answers and links</text>
+
+  <g filter="url(#shadow)">
+    <rect x="630" y="468" width="285" height="180" rx="14" fill="#ffffff" stroke="#5da6a7" stroke-width="2"/>
+    <rect x="630" y="468" width="285" height="8" rx="4" fill="#167c80"/>
+  </g>
+  <rect x="650" y="490" width="162" height="24" rx="12" fill="#dff1f1"/>
+  <text x="731" y="507" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#12696d">SAP BTP CLOUD FOUNDRY</text>
+  <text class="box-title" x="652" y="548">FastMCP server</text>
+  <text class="box-copy-small" x="652" y="578">Python · authenticated</text>
+  <text class="box-copy-small" x="652" y="600">Semantic search and retrieval</text>
+  <text class="box-copy-small" x="652" y="622">Read-only tools</text>
+
+  <line x1="240" y1="560" x2="310" y2="560" stroke="#1769aa" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text class="arrow-label" x="275" y="546" text-anchor="middle">question</text>
+  <line x1="550" y1="560" x2="630" y2="560" stroke="#1769aa" stroke-width="3" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+  <text class="arrow-label" x="590" y="546" text-anchor="middle">MCP</text>
+
+  <path d="M915 548 H1155 V320" fill="none" stroke="#1769aa" stroke-width="3" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+  <text class="arrow-label" x="1025" y="533" text-anchor="middle">read-only search</text>
+
+  <path d="M430 488 C425 410 260 395 180 310" fill="none" stroke="#b65300" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrow-orange)"/>
+  <rect x="226" y="383" width="245" height="31" rx="15" fill="#fff2e4"/>
+  <text class="link-label" x="348" y="404" text-anchor="middle">open stored HTTPS source link</text>
+
+  <rect x="960" y="582" width="355" height="70" rx="12" fill="#fff7ed" stroke="#e3ae78"/>
+  <circle cx="988" cy="606" r="13" fill="#ffe1bf"/>
+  <text x="988" y="611" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#9a4900">!</text>
+  <text class="note-title" x="1010" y="611">No direct SharePoint access</text>
+  <text class="note-copy" x="980" y="635">The MCP server returns links stored during indexing.</text>
+</svg>
