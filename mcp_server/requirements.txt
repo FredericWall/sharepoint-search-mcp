@@ -1,7 +1,7 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.13.0+cpu
 fastmcp==2.12.5
-requests==2.32.5
+requests==2.34.2
 uvicorn[standard]==0.34.0
 sqlite-vec==0.1.9
 pysqlite3-binary; sys_platform == "linux"
